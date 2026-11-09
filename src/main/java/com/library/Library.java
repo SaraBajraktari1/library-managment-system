@@ -17,15 +17,11 @@ public class Library {
 
     public void borrowBook(String isbn, String memberId) {
         requireText(memberId, "Member ID");
-        Book book = findBookOrThrow(isbn);
-        if (book.isBorrowed()) throw new IllegalStateException("Book is already borrowed");
-        book.markBorrowed(memberId);
+        findBookOrThrow(isbn).markBorrowed(memberId);
     }
 
-     public void returnBook(String isbn) {
-        Book book = findBookOrThrow(isbn);
-        if (!book.isBorrowed()) throw new IllegalStateException("Book is not borrowed");
-        book.markReturned();
+    public void returnBook(String isbn) {
+        findBookOrThrow(isbn).markReturned();
     }
 
     public Book findByIsbn(String isbn) { return books.get(isbn); }

@@ -19,6 +19,15 @@ public class Book {
     public boolean isBorrowed() { return borrowed; }
     public String getBorrowedBy() { return borrowedBy; }
 
-    void markBorrowed(String memberId) { borrowed = true; borrowedBy = memberId; }
-    void markReturned() { borrowed = false; borrowedBy = null; }
+    void markBorrowed(String memberId) {
+        if (borrowed) throw new IllegalStateException("Book is already borrowed");
+        borrowed = true;
+        borrowedBy = memberId;
+    }
+
+    void markReturned() {
+        if (!borrowed) throw new IllegalStateException("Book is not borrowed");
+        borrowed = false;
+        borrowedBy = null;
+    }
 }
