@@ -22,6 +22,10 @@ public class Library {
         book.markBorrowed(memberId);
     }
 
+    public void returnBook(String isbn) {
+        throw new UnsupportedOperationException("TODO");
+    }
+
     public Book findByIsbn(String isbn) { return books.get(isbn); }
 
     public int getBookCount() { return books.size(); }
