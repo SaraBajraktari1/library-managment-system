@@ -17,8 +17,7 @@ public class Library {
 
     public void borrowBook(String isbn, String memberId) {
         requireText(memberId, "Member ID");
-        Book book = books.get(isbn);
-        if (book == null) throw new IllegalArgumentException("Book not found: " + isbn);
+        Book book = findBookOrThrow(isbn);
         if (book.isBorrowed()) throw new IllegalStateException("Book is already borrowed");
         book.markBorrowed(memberId);
     }
@@ -26,6 +25,12 @@ public class Library {
     public Book findByIsbn(String isbn) { return books.get(isbn); }
 
     public int getBookCount() { return books.size(); }
+
+    private Book findBookOrThrow(String isbn) {
+        Book book = books.get(isbn);
+        if (book == null) throw new IllegalArgumentException("Book not found: " + isbn);
+        return book;
+    }
 
     private static void requireText(String value, String field) {
         if (value == null || value.isBlank())
