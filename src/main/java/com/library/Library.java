@@ -15,6 +15,10 @@ public class Library {
         books.put(book.getIsbn(), book);
     }
 
+    public void borrowBook(String isbn, String memberId) {
+        throw new UnsupportedOperationException("TODO");
+    }
+
     public Book findByIsbn(String isbn) { return books.get(isbn); }
 
     public int getBookCount() { return books.size(); }
