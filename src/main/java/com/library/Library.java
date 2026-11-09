@@ -16,7 +16,11 @@ public class Library {
     }
 
     public void borrowBook(String isbn, String memberId) {
-        throw new UnsupportedOperationException("TODO");
+        requireText(memberId, "Member ID");
+        Book book = books.get(isbn);
+        if (book == null) throw new IllegalArgumentException("Book not found: " + isbn);
+        if (book.isBorrowed()) throw new IllegalStateException("Book is already borrowed");
+        book.markBorrowed(memberId);
     }
 
     public Book findByIsbn(String isbn) { return books.get(isbn); }
