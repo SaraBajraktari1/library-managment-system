@@ -38,4 +38,10 @@ public class Library {
         if (value == null || value.isBlank())
             throw new IllegalArgumentException(field + " is required");
     }
+
+        public static final int MAX_LOANS = 3;
+
+    public int getBorrowedCount(String memberId) {
+        return 0;
+    }
 }
