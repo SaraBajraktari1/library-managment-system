@@ -34,7 +34,9 @@ public class Library {
                 .filter(book -> book.isBorrowed() && Objects.equals(book.getBorrowedBy(), memberId))
                 .count();
     }
-
+    public java.util.Collection<Book> getBooks() {
+        return java.util.Collections.unmodifiableCollection(books.values());
+    }
     public Book findByIsbn(String isbn) { return books.get(isbn); }
 
     public int getBookCount() { return books.size(); }
