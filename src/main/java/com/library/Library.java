@@ -4,6 +4,8 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class Library {
+    public static final int MAX_LOANS = 3;
+
     private final Map<String, Book> books = new LinkedHashMap<>();
 
     public void addBook(Book book) {
@@ -17,11 +19,24 @@ public class Library {
 
     public void borrowBook(String isbn, String memberId) {
         requireText(memberId, "Member ID");
-        findBookOrThrow(isbn).markBorrowed(memberId);
+        Book book = findBookOrThrow(isbn);
+        if (getBorrowedCount(memberId) >= MAX_LOANS)
+            throw new IllegalStateException("Borrow limit reached");
+        book.markBorrowed(memberId);
     }
 
     public void returnBook(String isbn) {
         findBookOrThrow(isbn).markReturned();
+    }
+
+    public int getBorrowedCount(String memberId) {
+        int count = 0;
+        for (Book book : books.values()) {
+            if (book.isBorrowed() && book.getBorrowedBy().equals(memberId)) {
+                count++;
+            }
+        }
+        return count;
     }
 
     public Book findByIsbn(String isbn) { return books.get(isbn); }
@@ -37,11 +52,5 @@ public class Library {
     private static void requireText(String value, String field) {
         if (value == null || value.isBlank())
             throw new IllegalArgumentException(field + " is required");
-    }
-
-        public static final int MAX_LOANS = 3;
-
-    public int getBorrowedCount(String memberId) {
-        return 0;
     }
 }
