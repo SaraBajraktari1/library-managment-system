@@ -1,60 +1,62 @@
 # 📚 Library Management System
 
-Sistem për menaxhimin e bibliotekës, i zhvilluar në **Java** me qasjen **Test Driven Development (TDD)**.
+A library management system built in **Java** using **Test Driven Development (TDD)**.
 
 ---
 
-## 📖 Përshkrimi i projektit
+## 📖 Project Description
 
-Shumë biblioteka të vogla, si ato të shkollave, fakulteteve apo komunave, e mbajnë ende evidencën
-e librave në fletore ose në tabela Excel. Kjo qasje ka disa probleme:
+Many small libraries, such as those in schools, universities and municipalities, still keep their
+book records in notebooks or Excel sheets. This approach causes several problems:
 
-- **Gabime në evidencë**: i njëjti libër regjistrohet dy herë, ose mungojnë të dhëna si ISBN apo titulli.
-- **Mungesë informacioni**: bibliotekari nuk e di menjëherë nëse një libër është i lirë apo i huazuar.
-- **Libra të humbur**: nuk dihet saktë kush e ka huazuar një libër dhe nëse është kthyer.
-- **Humbje kohe**: kërkimi manual i librave dhe i huazimeve zgjat shumë.
+- **Record errors**: the same book is registered twice, or data such as the ISBN or title is missing.
+- **Lack of information**: the librarian cannot immediately tell whether a book is available or on loan.
+- **Lost books**: it is unclear who borrowed a book and whether it has been returned.
+- **Wasted time**: searching manually for books and loans takes a long time.
 
-**Library Management System** i zgjidh këto probleme me një sistem të centralizuar, ku çdo libër
-regjistrohet me të dhëna të validuara dhe çdo huazim e kthim ruhet automatikisht.
-
----
-
-## 🎯 Qëllimi kryesor
-
-Qëllimi kryesor është **digjitalizimi dhe automatizimi i proceseve bazë të një biblioteke**:
-regjistrimi i librave, huazimi dhe kthimi i tyre. Kështu evidenca bëhet e saktë, e shpejtë dhe e besueshme.
-
-Aplikacioni zhvillohet me **TDD**: për çdo funksionalitet shkruhet së pari testi (RED), pastaj
-kodi minimal që e kalon testin (GREEN), dhe në fund kodi përmirësohet pa e ndryshuar sjelljen (REFACTOR).
+**Library Management System** solves these problems with a centralized system in which every book
+is registered with validated data and every loan and return is tracked automatically.
 
 ---
 
-## ✨ Funksionalitetet
+## 🎯 Main Goal
 
-| # | Funksionaliteti | Përshkrimi | Statusi |
-|---|-----------------|------------|---------|
-| 1 | Shtimi i librit | Regjistrimi i librit me ISBN, titull dhe autor. Refuzohen librat pa ISBN, pa titull ose me ISBN të dyfishtë. | ✅ Implementuar (TDD) |
-| 2 | Huazimi i librit | Një anëtar huazon një libër të lirë. Refuzohen librat që nuk ekzistojnë, librat e huazuar tashmë dhe anëtarët pa ID. | ✅ Implementuar (TDD) |
-| 3 | Kthimi i librit | Libri i huazuar kthehet dhe bëhet sërish i lirë. Refuzohen librat që nuk janë huazuar ose nuk ekzistojnë. | ✅ Implementuar (TDD) |
-| 4 | Kërkimi i librave | Kërkimi sipas titullit ose autorit. | 🔜 Planifikuar |
-| 5 | Menaxhimi i anëtarëve | Regjistrimi dhe menaxhimi i anëtarëve të bibliotekës. | 🔜 Planifikuar |
-| 6 | Afatet dhe vonesat | Afati i kthimit dhe llogaritja e vonesave. | 🔜 Planifikuar |
+The main goal is to **digitalize and automate the core processes of a library**:
+registering books, borrowing them and returning them. This makes record keeping accurate, fast and reliable.
+
+The application is developed with **TDD**: for every feature, the test is written first (RED), then the
+minimal code that makes it pass (GREEN), and finally the code is improved without changing its behavior (REFACTOR).
 
 ---
 
-## 🛠️ Teknologjitë
+## ✨ Features
 
-| Teknologjia | Përdorimi |
-|-------------|-----------|
-| **Java 17** | Gjuha kryesore e programimit |
-| **Maven** | Menaxhimi i projektit, i varësive dhe ekzekutimi i testeve |
-| **JUnit 5 (Jupiter)** | Shkrimi dhe ekzekutimi i testeve të njësisë |
-| **Git & GitHub** | Kontrolli i versioneve dhe dëshmia e cikleve TDD përmes commit-eve |
-| **VS Code / IntelliJ IDEA** | Mjedisi i zhvillimit |
+| # | Feature | Description | Status |
+|---|---------|-------------|--------|
+| 1 | Add a book | Register a book with ISBN, title and author. Books with no ISBN, no title or a duplicate ISBN are rejected. | ✅ Implemented (TDD) |
+| 2 | Borrow a book | A member borrows an available book. Unknown books, books already on loan and members without an ID are rejected. | ✅ Implemented (TDD) |
+| 3 | Return a book | A borrowed book is returned and becomes available again. Books that are not on loan or do not exist are rejected. | ✅ Implemented (TDD) |
+| 4 | Late fee calculation | 14 free days, 0.50 € per late day, capped at 10 €. | ✅ Implemented (TDD) |
+| 5 | Borrow limit | A member can borrow at most 3 books at the same time. | ✅ Implemented (TDD) |
+| 6 | Book search | Search by title or author. | 🔜 Planned |
+| 7 | Member management | Register and manage library members. | 🔜 Planned |
 
 ---
 
-## 📁 Struktura e projektit
+## 🛠️ Technologies
+
+| Technology | Purpose |
+|------------|---------|
+| **Java 17** | Main programming language |
+| **Maven** | Project management, dependencies and running the tests |
+| **JUnit 5 (Jupiter)** | Writing and running unit tests, including parameterized tests |
+| **JaCoCo** | Code and branch coverage report |
+| **Git & GitHub** | Version control; the commit history documents the TDD cycles |
+| **VS Code / IntelliJ IDEA** | Development environment |
+
+---
+
+## 📁 Project Structure
 
 ```
 library-management-system
@@ -62,50 +64,70 @@ library-management-system
 ├── README.md
 └── src
     ├── main/java/com/library
-    │   ├── Book.java            # Modeli i librit
-    │   └── Library.java         # Logjika e bibliotekës
+    │   ├── Book.java                 # Book model
+    │   ├── Library.java              # Library logic (add, borrow, return, loan limit)
+    │   └── FeeCalculator.java        # Late fee calculation
     └── test/java/com/library
-        ├── AddBookTest.java     # Testet për shtimin e librit
-        ├── BorrowBookTest.java  # Testet për huazimin
-        └── ReturnBookTest.java  # Testet për kthimin
+        ├── AddBookTest.java          # Tests for adding a book
+        ├── BorrowBookTest.java       # Tests for borrowing
+        ├── ReturnBookTest.java       # Tests for returning
+        ├── FeeCalculatorTest.java    # Boundary and parameterized tests for fees
+        ├── BorrowLimitTest.java      # Branch and boundary tests for the loan limit
+        └── ValidationTest.java       # Parameterized negative tests
 ```
 
 ---
 
-## ▶️ Si të ekzekutohet
+## ▶️ Setup and Running
 
-Kërkesat: **Java 17+** dhe **Maven 3.8+**.
+Requirements: **Java 17+** and **Maven 3.8+**.
 
 ```bash
 git clone https://github.com/SaraBajraktari1/library-managment-system.git
 cd library-managment-system
-mvn test
+mvn clean test
 ```
 
-Rezultati i pritur:
+Expected result:
 
 ```
-Tests run: 12, Failures: 0, Errors: 0, Skipped: 0
+Tests run: ..., Failures: 0, Errors: 0, Skipped: 0
 BUILD SUCCESS
 ```
 
+Coverage report (including branch coverage): after `mvn clean test`, open `target/site/jacoco/index.html`.
+
 ---
 
-## 🔁 Procesi TDD (Red → Green → Refactor)
+## 🧪 Types of Tests
 
-Historiku i commit-eve tregon tre cikle të plota TDD:
+| Type | Where it is demonstrated |
+|------|--------------------------|
+| Positive testing | `AddBookTest`, `BorrowBookTest`, `ReturnBookTest` |
+| Negative testing | `ValidationTest`, `FeeCalculatorTest.negativeDaysThrow` |
+| Boundary value testing | `FeeCalculatorTest` (13/14/15 and 33/34/35 days), `BorrowLimitTest` (3rd and 4th book) |
+| Branch testing | Branches of `addBook`, `borrowBook`, `returnBook` and `calculateFee`; JaCoCo report |
+| Parameterized tests | `@CsvSource`, `@ValueSource`, `@NullAndEmptySource` |
 
-| Cikli | 🔴 RED | 🟢 GREEN | 🔵 REFACTOR |
+---
+
+## 🔁 TDD Process (Red → Green → Refactor)
+
+The commit history shows five complete TDD cycles:
+
+| Cycle | 🔴 RED | 🟢 GREEN | 🔵 REFACTOR |
 |-------|--------|----------|-------------|
-| 1. Shtimi i librit | Testet për `addBook` dështojnë | Implementimi i `addBook` | Nxjerrja e metodës `requireText` |
-| 2. Huazimi | Testet për `borrowBook` dështojnë | Implementimi i `borrowBook` | Nxjerrja e metodës `findBookOrThrow` |
-| 3. Kthimi | Testet për `returnBook` dështojnë | Implementimi i `returnBook` | Zhvendosja e kontrollit të gjendjes te `Book` |
+| 1. Add a book | Tests for `addBook` fail | Implement `addBook` | Extract the `requireText` method |
+| 2. Borrow | Tests for `borrowBook` fail | Implement `borrowBook` | Extract the `findBookOrThrow` method |
+| 3. Return | Tests for `returnBook` fail | Implement `returnBook` | Move the state checks into `Book` |
+| 4. Late fee | Tests for `FeeCalculator` fail | Implement `calculateFee` | Constants `DAILY_FEE`, `MAX_FEE` |
+| 5. Borrow limit | Tests for `MAX_LOANS` fail | Add the check in `borrowBook` | `getBorrowedCount` with a stream |
 
-Historikun mund ta shihni me `git log --oneline`.
+View the history with `git log --oneline`.
 
 ---
 
-## 👩‍💻 Autorja
+## 👩‍💻 Author
 
-**Sara Bajraktari**, Master, Semestri 3
-Lënda: *Zhvillimi i Drejtuar nga Testimi*
+**Sara Bajraktari**, Master's degree, Semester 3
+Course: *Test Driven Development*
