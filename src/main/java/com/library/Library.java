@@ -1,7 +1,7 @@
 package com.library;
-
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Objects;
 
 public class Library {
     public static final int MAX_LOANS = 3;
@@ -29,14 +29,10 @@ public class Library {
         findBookOrThrow(isbn).markReturned();
     }
 
-    public int getBorrowedCount(String memberId) {
-        int count = 0;
-        for (Book book : books.values()) {
-            if (book.isBorrowed() && book.getBorrowedBy().equals(memberId)) {
-                count++;
-            }
-        }
-        return count;
+       public int getBorrowedCount(String memberId) {
+        return (int) books.values().stream()
+                .filter(book -> book.isBorrowed() && Objects.equals(book.getBorrowedBy(), memberId))
+                .count();
     }
 
     public Book findByIsbn(String isbn) { return books.get(isbn); }
