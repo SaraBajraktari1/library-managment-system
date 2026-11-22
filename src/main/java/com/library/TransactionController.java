@@ -31,4 +31,14 @@ public class TransactionController {
     public Transaction findById(@PathVariable Long id) {
         return service.findById(id);
     }
+        @PutMapping("/{id}")
+    public Transaction update(@PathVariable Long id, @Valid @RequestBody TransactionRequest request) {
+        return service.update(id, request);
+    }
+
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void delete(@PathVariable Long id) {
+        service.delete(id);
+    }
 }

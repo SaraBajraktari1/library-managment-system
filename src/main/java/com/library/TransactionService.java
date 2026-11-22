@@ -25,4 +25,13 @@ public class TransactionService {
     public Transaction findById(Long id) {
         return repository.findById(id).orElseThrow(() -> new TransactionNotFoundException(id));
     }
+        public Transaction update(Long id, TransactionRequest request) {
+        Transaction transaction = findById(id);
+        transaction.update(request.bookIsbn(), request.memberId(), request.daysBorrowed());
+        return repository.save(transaction);
+    }
+
+    public void delete(Long id) {
+        repository.delete(findById(id));
+    }
 }
