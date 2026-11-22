@@ -187,4 +187,9 @@ class TransactionControllerTest {
                 .andExpect(status().isNotFound())
                 .andExpect(jsonPath("$.error").value("Transaction not found: 99"));
     }
+        private org.springframework.test.web.servlet.ResultActions sendJson(
+            org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder builder, String body)
+            throws Exception {
+        return mockMvc.perform(builder.contentType(MediaType.APPLICATION_JSON).content(body));
+    }
 }
