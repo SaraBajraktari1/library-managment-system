@@ -132,4 +132,59 @@ class TransactionControllerTest {
                 .andExpect(status().isNotFound())
                 .andExpect(jsonPath("$.error").value("Transaction not found: 99"));
     }
+        // ---------- Update ----------
+
+    @Test
+    void updateTransactionReturns200AndNewValues() throws Exception {
+        when(service.update(eq(1L), any(TransactionRequest.class)))
+                .thenReturn(tx(1L, "222", "M002", 40));
+
+        mockMvc.perform(put("/api/transactions/1")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(json("222", "M002", 40)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.bookIsbn").value("222"))
+                .andExpect(jsonPath("$.memberId").value("M002"))
+                .andExpect(jsonPath("$.fee").value(10.0));
+    }
+
+    @Test
+    void updateTransactionWithNegativeDaysReturns400() throws Exception {
+        mockMvc.perform(put("/api/transactions/1")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(json("222", "M002", -1)))
+                .andExpect(status().isBadRequest());
+
+        verify(service, never()).update(anyLong(), any());
+    }
+
+    @Test
+    void updateUnknownTransactionReturns404() throws Exception {
+        when(service.update(eq(99L), any(TransactionRequest.class)))
+                .thenThrow(new TransactionNotFoundException(99L));
+
+        mockMvc.perform(put("/api/transactions/99")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(json("222", "M002", 5)))
+                .andExpect(status().isNotFound());
+    }
+
+    // ---------- Delete ----------
+
+    @Test
+    void deleteTransactionReturns204() throws Exception {
+        mockMvc.perform(delete("/api/transactions/1"))
+                .andExpect(status().isNoContent());
+
+        verify(service).delete(1L);
+    }
+
+    @Test
+    void deleteUnknownTransactionReturns404() throws Exception {
+        doThrow(new TransactionNotFoundException(99L)).when(service).delete(99L);
+
+        mockMvc.perform(delete("/api/transactions/99"))
+                .andExpect(status().isNotFound())
+                .andExpect(jsonPath("$.error").value("Transaction not found: 99"));
+    }
 }
